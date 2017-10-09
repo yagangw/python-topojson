@@ -4,7 +4,7 @@ Port of [topojson](https://github.com/mbostock/topojson), originally ported by [
 
 Installation:
 ```
-pip install git+https://github.com/osgn/python-topojson.git
+pip install git+https://github.com/yagangw/python-topojson.git
 ```
 
 Current usage:

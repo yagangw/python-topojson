@@ -1,4 +1,4 @@
-# coding=utf8
+# -*- coding: utf-8 -*-
 from mytypes import Types
 from stitchpoles import stitch
 from coordinatesystems import systems
@@ -8,7 +8,7 @@ from clockwise import Clock
 from decimal import Decimal
 from simplify import simplify_object
 from utils import is_infinit, E
-
+from collections import OrderedDict
 
 def property_transform(outprop, key, inprop):
     outprop[key] = inprop
@@ -154,6 +154,17 @@ def topology(
                 del geometry['coordinates']
             return geometry
     make_topo_inst = make_topo(objects)
+    #有序字典，实现了一个 FIFO(先进先出)的dict，按添加的KEY值先后顺序输出
+    dic = OrderedDict([('type', 'Topology'),
+                    ('bbox', [x0, y0, x1, y1]),
+                    ('transform', {
+                        'scale': [1.0 / kx, 1.0 / ky],
+                        'translate': [x0, y0]
+                    }),
+                    ('objects', make_topo_inst.outObj),
+                    ('arcs',  ln.get_arcs())])
+    return dic
+    #默认的字典，hash表的数据结构注定它就是无序的
     return {
         'type': "Topology",
         'bbox': [x0, y0, x1, y1],
